@@ -10,7 +10,8 @@ namespace FormsGallery
             Label header = new Label
             {
                 Text = "Image",
-                Font = Font.SystemFontOfSize(50, FontAttributes.Bold),
+				FontSize = 50,
+				FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center
             };
 
@@ -18,9 +19,9 @@ namespace FormsGallery
             {
                 // Some differences with loading images in initial release.
                 Source =
-                    Device.OnPlatform(ImageSource.FromUri(new Uri("http://xamarin.com/images/index/ide-xamarin-studio.png")),
+                    Device.OnPlatform(ImageSource.FromUri(new Uri("https://www.xamarin.com/content/images/pages/branding/assets/xamagon.png")),
                                       ImageSource.FromFile("ide_xamarin_studio.png"),
-                                      ImageSource.FromUri(new Uri("http://xamarin.com/images/index/ide-xamarin-studio.png"))),
+                                      ImageSource.FromUri(new Uri("https://www.xamarin.com/content/images/pages/branding/assets/xamagon.png"))),
 
 
 

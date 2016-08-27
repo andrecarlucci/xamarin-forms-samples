@@ -2,50 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 
-using Xamarin.Forms;
-using MonoTouch.ObjCRuntime;
-
-namespace UsingUITest
+namespace UsingUITest.iOS
 {
 	[Register ("AppDelegate")]
-	public partial class AppDelegate : UIApplicationDelegate
+	public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
-		UIWindow window;
-
-		static readonly IntPtr setAccessibilityIdentifier_Handle = Selector.GetHandle("setAccessibilityIdentifier:");
-
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			Forms.Init ();
+			global::Xamarin.Forms.Forms.Init ();
 
+			// NOTE: this is no longer required - Xamarin.Forms 2.2 now AUTOMATICALLY
+			// assigns the "AutomationId" to the "ContentDescription"
+			//global::Xamarin.Forms.Forms.ViewInitialized += (sender, e) => {
+			//	// http://developer.xamarin.com/recipes/testcloud/set-accessibilityidentifier-ios/
+			//	if (null != e.View.AutomationId) {
+			//		e.NativeView.AccessibilityIdentifier = e.View.AutomationId;
+			//		Console.WriteLine ("Set AccessibilityIdentifier: " + e.View.AutomationId);
+			//	}
+			//};
 
-			// http://forums.xamarin.com/discussion/21148/calabash-and-xamarin-forms-what-am-i-missing
-			Forms.ViewInitialized += (object sender, ViewInitializedEventArgs e) => {
+			LoadApplication (new App ());
 
-				// http://developer.xamarin.com/recipes/testcloud/set-accessibilityidentifier-ios/
-				if (null != e.View.StyleId) {
-					e.NativeView.AccessibilityIdentifier = e.View.StyleId;
-					Console.WriteLine("Set AccessibilityIdentifier: " + e.View.StyleId);
-				}
-			};
-
-
-			window = new UIWindow (UIScreen.MainScreen.Bounds);
-			
-			window.RootViewController = App.GetMainPage ().CreateViewController ();
-			window.MakeKeyAndVisible ();
-
-
-			#if DEBUG
-			// requires Xamarin Test Cloud Agent component
-			Xamarin.Calabash.Start();
+			#if ENABLE_TEST_CLOUD
+			Xamarin.Calabash.Start ();
 			#endif
 
-
-			return true;
+			return base.FinishedLaunching (app, options);
 		}
 	}
 }

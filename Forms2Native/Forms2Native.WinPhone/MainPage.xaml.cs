@@ -1,26 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-
-using Xamarin.Forms;
-using Forms2Native;
+﻿using Xamarin.Forms;
 
 namespace Forms2Native.WinPhone
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : global::Xamarin.Forms.Platform.WinPhone.FormsApplicationPage
     {
-        public MainPage()
+        public MainPage ()
         {
-            InitializeComponent();
+            InitializeComponent ();
 
-            Forms.Init();
-            Content = Forms2Native.App.GetMainPage().ConvertPageToUIElement(this);
+            Forms.Init ();
+
+            LoadApplication (new Forms2Native.App ());
+
+            MessagingCenter.Subscribe<MyFirstPage, NativeNavigationArgs> (
+	            this,
+	            Forms2Native.App.NativeNavigationMessage,
+	            HandleNativeNavigationMessage);
+        }
+
+        private void HandleNativeNavigationMessage (MyFirstPage sender, NativeNavigationArgs args)
+        {
+            sender.Navigation.PushAsync (args.Page);
         }
     }
 }

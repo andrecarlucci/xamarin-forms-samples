@@ -8,20 +8,24 @@ using Android.Widget;
 using Android.OS;
 
 using Xamarin.Forms.Platform.Android;
+using Android.Content.PM;
 
 namespace WorkingWithImages.Droid
 {
-    [Activity(Label = "WorkingWithImages", MainLauncher = true)]
-    public class MainActivity : AndroidActivity
-    {
-        protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
+	[Activity (Label = "WorkingWithImages", Icon = "@drawable/icon", MainLauncher = true, 
+		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	public class MainActivity : 
+	global::Xamarin.Forms.Platform.Android.FormsApplicationActivity // superclass new in 1.3
+	{
+		protected override void OnCreate (Bundle bundle)
+		{
+			base.OnCreate (bundle);
 
-            Xamarin.Forms.Forms.Init(this, bundle);
+			global::Xamarin.Forms.Forms.Init (this, bundle);
 
-            SetPage(App.GetMainPage());
-        }
-    }
+			LoadApplication (new App ()); // method is new in 1.3
+		}
+	}
+		
 }
 

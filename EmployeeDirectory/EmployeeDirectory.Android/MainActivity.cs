@@ -8,11 +8,13 @@ using Android.OS;
 using System.IO;
 using EmployeeDirectory;
 using EmployeeDirectoryUI;
+using Android.Content.PM;
 
 namespace EmployeeDirectory.Android
 {
-	[Activity (Label = "EmployeeDirectory", MainLauncher = true)]
-	public class Activity1 : Xamarin.Forms.Platform.Android.AndroidActivity
+	[Activity (Label = "EmployeeDirectory", MainLauncher = true,
+		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	public class Activity1 : Xamarin.Forms.Platform.Android.FormsApplicationActivity
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -23,8 +25,10 @@ namespace EmployeeDirectory.Android
 				EmployeeDirectory.Android.Resource.Raw.XamarinFavorites);
 
 			Xamarin.Forms.Forms.Init (this, bundle);
+
 			App.PhoneFeatureService = new AndroidPhoneFeatureService ();
-			SetPage (App.GetMainPage ());
+
+			LoadApplication (new App ());
 		}
 
 		private void CopyInfoIntoWorkingFolder (string fileName, int resourceId)

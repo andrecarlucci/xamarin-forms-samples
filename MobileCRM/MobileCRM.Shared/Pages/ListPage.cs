@@ -1,4 +1,4 @@
-﻿using Xamarin.Forms;
+using Xamarin.Forms;
 using MobileCRM.Models;
 using MobileCRM.Shared.CustomViews;
 using MobileCRM.Shared.ViewModels;
@@ -38,7 +38,7 @@ namespace MobileCRM.Shared.Pages
             Cell = new DataTemplate(typeof(ListTextCell));
 
             //Bind our cell's text and details properties
-            Cell.SetBinding(TextCell.TextProperty, "FirstName");
+            Cell.SetBinding(TextCell.TextProperty, "FullName");
             Cell.SetBinding(TextCell.DetailProperty, "Industry");
 
             list.ItemTemplate = Cell;

@@ -12,6 +12,8 @@ namespace LabelledSections
     {
         public LabelledSectionPage()
         {
+			Padding = new Thickness (0, 20, 0, 0);
+
             var list = new ListView
             {
                 ItemTemplate = new DataTemplate(typeof(TextCell))
@@ -21,7 +23,10 @@ namespace LabelledSections
 						}
                 },
 
-                GroupDisplayBinding = new Binding("Title"),
+				GroupDisplayBinding = new Binding("LongTitle"),
+				GroupShortNameBinding = new Binding("Title"),
+				Header = "HEADER",
+				Footer = "FOOTER",
                 IsGroupingEnabled = true,
                 ItemsSource = SetupList(),
             };

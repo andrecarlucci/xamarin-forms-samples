@@ -7,11 +7,16 @@ using Xamarin.Forms;
 
 namespace LabelledSections
 {
-    public class App
+	public class App : Application
     {
-        public static Page GetMainPage()
+        public App()
         {
-            return new LabelledSectionPage();
+			var tabs = new TabbedPage ();
+
+			tabs.Children.Add(new LabelledSectionPage {Title = "C#" });
+			tabs.Children.Add(new LabelledSectionXaml {Title = "XAML" });
+
+			MainPage = tabs;
         }
     }
 }

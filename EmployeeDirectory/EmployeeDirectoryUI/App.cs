@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace EmployeeDirectoryUI
 {
-	public enum UIImplementation
-	{
+	public enum UIImplementation {
 		CSharp = 0,
 		Xaml
 	}
 
-	public static class App
+	public class App : Application
 	{
 		//Change the following line to switch between XAML and C# versions
 		private static UIImplementation uiImplementation = UIImplementation.CSharp;
@@ -24,21 +23,22 @@ namespace EmployeeDirectoryUI
 
 		public static DateTime LastUseTime { get; set; }
 
-		public static Page GetMainPage ()
+		public App ()
 		{
 			var task = Task.Run(async () => { 
-				Service = await MemoryDirectoryService.FromCsv("XamarinDirectory.csv"); 
+				Service = await MemoryDirectoryService.FromCsv ("XamarinDirectory.csv");
 			});
+
 			task.Wait();
 
 			var employeeList = new ContentPage ();
-			if (uiImplementation == UIImplementation.CSharp) {
-				employeeList = new EmployeeListView ();
-			} else if (uiImplementation == UIImplementation.Xaml) {
-				employeeList = new EmployeeListXaml ();
-			}
 
-			return new NavigationPage (employeeList);
+			if (uiImplementation == UIImplementation.CSharp)
+				employeeList = new EmployeeListView ();
+			else if (uiImplementation == UIImplementation.Xaml)
+				employeeList = new EmployeeListXaml ();
+
+			MainPage = new NavigationPage (employeeList);
 		}
 	}
 }

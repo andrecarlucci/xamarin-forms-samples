@@ -1,11 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace FormsGallery.iOS
 {
@@ -13,11 +14,8 @@ namespace FormsGallery.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : UIApplicationDelegate
+    public partial class AppDelegate : FormsApplicationDelegate
     {
-        // class-level declarations
-        UIWindow window;
-
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -29,14 +27,8 @@ namespace FormsGallery.iOS
         {
             Forms.Init();
             Xamarin.FormsMaps.Init();
-
-            window = new UIWindow(UIScreen.MainScreen.Bounds);
-
-            window.RootViewController = App.GetMainPage().CreateViewController();
-
-            window.MakeKeyAndVisible();
-
-            return true;
+			LoadApplication (new App ());
+			return base.FinishedLaunching (app,options);
         }
     }
 }
